@@ -12,11 +12,18 @@ docker build -f phpmyadmin/Dockerfile -t zhiqiangwang/php:phpmyadmin .
 
 docker build --build-arg="IMAGE_TAG=7.4-fpm" -f Dockerfile.nginx -t zhiqiangwang/php:7.4-fpm-nginx  .
 docker build --build-arg="IMAGE_TAG=7.4-fpm" -f Dockerfile.composer -t zhiqiangwang/php:7.4-fpm-composer  .
-
 ~~~
 
+> wxwork-finance镜像进行单独仓库维护发布
+> https://github.com/chihqiang/docker-php-wxwork-finance
+>
+> ```
+> zhiqiangwang/php:7.4-fpm-wxwork-finance
+> zhiqiangwang/php:7.4-cli-wxwork-finance
+> ```
 
 ## 启动容器
+
 ~~~
 docker run --name myphp -p 9000:9000 -v /data/wwwroot/laravel/:/var/www/html -d zhiqiangwang/php:7.4-fpm 
 
