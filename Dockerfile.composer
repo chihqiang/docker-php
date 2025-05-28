@@ -6,5 +6,7 @@ RUN apt-get update
 
 RUN apt install -y --no-install-recommends git
 
-RUN  cd /tmp && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php && mv composer.phar /usr/local/bin/composer
-
+RUN  cd /tmp \
+    && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php && mv composer.phar /usr/local/bin/composer \
+    && rm -rf /tmp/*
