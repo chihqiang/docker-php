@@ -54,4 +54,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: |
             zhiqiangwang/php:${{ matrix.version }}-composer
-            ghcr.io/zhiqiangwang/php:${{ matrix.version }}
+            ghcr.io/chihqiang/php:${{ matrix.version }}
