@@ -2,6 +2,8 @@ ARG IMAGE_TAG="7.4-fpm"
 
 FROM zhiqiangwang/php:${IMAGE_TAG}-composer
 
+RUN apt-get update && apt-get install -y nginx supervisor \
+    && apt clean && rm -rf /var/lib/apt/lists/*
 
 ADD ./conf/nginx/default /etc/nginx/sites-enabled/default
 ADD ./conf/supervisor/nginx-php.conf /etc/supervisor/conf.d
