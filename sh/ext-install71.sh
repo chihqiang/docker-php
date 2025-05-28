@@ -45,7 +45,7 @@ fi
 # http://pecl.php.net/package/swoole
 if [ -n "${SWOOLE_VERSION+x}" ]; then
     docker-php-ext-install  -j$(nproc) sockets
-    apt-get install -y --no-install-recommends openssl libssl-dev libcurl4-openssl-dev
+    apt-get install -y --no-install-recommends openssl libssl-dev libcurl4-openssl-dev libnghttp2-dev 
     cd /tmp && wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz -O swoole.tar.gz \
     && mkdir /tmp/swoole \
     && tar -xf swoole.tar.gz -C /tmp/swoole --strip-components=1 \
