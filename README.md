@@ -1,10 +1,21 @@
 ## 构建
 
 ~~~
+docker build -f 7.1-cli/Dockerfile -t zhiqiangwang/php:7.1-cli  .
+docker build -f 7.1-fpm/Dockerfile -t zhiqiangwang/php:7.1-fpm  .
+
+docker build -f 7.2-cli/Dockerfile -t zhiqiangwang/php:7.2-cli  .
+docker build -f 7.2-fpm/Dockerfile -t zhiqiangwang/php:7.2-fpm  .
+
+docker build -f 7.3-cli/Dockerfile -t zhiqiangwang/php:7.3-cli  .
+docker build -f 7.3-fpm/Dockerfile -t zhiqiangwang/php:7.3-fpm  .
+
 docker build -f 7.4-fpm/Dockerfile -t zhiqiangwang/php:7.4-fpm  .
 docker build -f 7.4-cli/Dockerfile -t zhiqiangwang/php:7.4-cli  .
+
 docker build -f 8.1-fpm/Dockerfile -t zhiqiangwang/php:8.1-fpm  .
 docker build -f 8.1-cli/Dockerfile -t zhiqiangwang/php:8.1-cli  .
+
 docker build -f 8.2-fpm/Dockerfile -t zhiqiangwang/php:8.2-fpm  .
 docker build -f 8.2-cli/Dockerfile -t zhiqiangwang/php:8.2-cli  .
 
