@@ -14,6 +14,8 @@ jobs:
           - 7.1-fpm
           - 7.2-cli
           - 7.2-fpm
+          - 7.3-cli
+          - 7.3-fpm
           - 7.4-fpm
           - 7.4-cli
           - 8.1-fpm
