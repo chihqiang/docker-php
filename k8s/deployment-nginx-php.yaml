@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: web-serve
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: php-nginx-config
+  namespace: web-serve
+data:
+  nginx.conf: |
+    worker_processes 1;
+    events { 
+      worker_connections 1024; 
+    }
+    http {
+      include       mime.types;
+      default_type  application/octet-stream;
+      sendfile        on;
+      keepalive_timeout  65;
+      server {
+        listen 80;
+        root /var/www/html;
+        index index.php index.html;
+        location / {
+            try_files $uri $uri/ /index.php?$query_string;
+        }
+        location ~ \.php$ {
+            include fastcgi_params;
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+      }
+    }
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-nginx-deployment
+  namespace: web-serve
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php-nginx
+  template:
+    metadata:
+      labels:
+        app: php-nginx
+    spec:
+      containers:
+        - name: php
+          image: zhiqiangwang/php:7.4-fpm
+          volumeMounts:
+            - name: www-data
+              mountPath: /var/www/html
+        - name: nginx
+          image: nginx:1.25
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: www-data
+              mountPath: /var/www/html
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: www-data
+          emptyDir: {}
+        - name: nginx-config
+          configMap:
+            name: php-nginx-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-nginx-service
+  namespace: web-serve
+spec:
+  selector:
+    app: php-nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort

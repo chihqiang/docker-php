@@ -1,0 +1,10 @@
+ARG IMAGE_TAG="7.4-fpm"
+
+FROM zhiqiangwang/php:${IMAGE_TAG}
+
+# 安装 git 和 Composer
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git ca-certificates curl \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/*
